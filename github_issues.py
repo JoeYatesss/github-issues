@@ -37,7 +37,7 @@ IMPROVEMENTS:
 - implement custom exceptions
 """
 api_token = os.environ.get("GITHUB_API_TOKEN")
-REPO_NAME = "chat"
+REPO_NAME = "FinancialQA"
 REPO_OWNER = "joeyatesss"
 GITHUB_API_URL = "https://api.github.com"
 
@@ -47,7 +47,6 @@ def get_issue_comments(issue_number: int):
     url = f"{GITHUB_API_URL}/repos/{REPO_OWNER}/{REPO_NAME}/issues/{issue_number}/comments"
 
     headers = {
-        "X-GitHub-Api-Version": "2022-11-28",
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {api_token}"
         }
@@ -77,7 +76,6 @@ def get_issue_comments(issue_number: int):
 def add_heart_reaction(comment_id: int):
     url = f"{GITHUB_API_URL}/repos/{REPO_OWNER}/{REPO_NAME}/issues/comments/{comment_id}/reactions"
     headers = {
-        "X-GitHub-Api-Version": "2022-11-28",
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {api_token}",
     }
@@ -96,13 +94,12 @@ def add_heart_reaction(comment_id: int):
  
 def main():
     try:
-        comments = get_issue_comments(3)
+        comments = get_issue_comments(1)
         for c in comments:
             body = (c.get("body") or "").lower()
             if ("heart" in body):
                 add_heart_reaction(c["id"])
     except Exception as e:
-        # Surface any error and exit non-zero when run as a script
         print(f"Error: {e}")
         raise
 
