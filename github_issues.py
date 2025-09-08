@@ -22,7 +22,7 @@ add_heart_reaction
 IMPROVEMENTS:
 - error handling
     - add timeouts to all calls
-    - retry on get and post requests with exponential back
+    - exponential backoff
 - handle edge cases
     - empty body
     - we could look for different heart variants
